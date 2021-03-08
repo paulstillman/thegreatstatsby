@@ -4,13 +4,16 @@ description: |
   Using the optim function in R, I demonstrate how to fit the prospect theory value function and estimate parameters of loss aversion and diminishing marginal utility.  
 author:
   - name: Paul E. Stillman
-    url: https://paulstillman.com/blog
+    url: https://www.paulstillman.com/
+    orcid_id: 0000-0002-4413-0558
 date: 03-08-2021
 bibliography: ML_blog_part1_v2.bib
 output:
   distill::distill_article:
     self_contained: false
     toc: true
+creative_commons: CC BY-NC
+
 ---
 
 ```{css, echo=FALSE}
@@ -32,9 +35,9 @@ library(tidyverse)
 ```
 # Introduction
 
-This is a brief introduction to how to use maximum likelihood to estimate the prospect theory parameters of loss aversion ($\lambda$) and diminishing marginal utility ($\rho$) using the `optim` function in R. The first part is meant to go through the logic and math behind prospect theory and modeling choices. The second part goes in detail into the R code used to do the Maximum likelihood estimation plus a few of the pitfalls that you can run into. If you're already familiar with MLE and just want the code, you can skip to the last section, which has the full code. All data and code for this page can be found [here](https://github.com/paulstillman/prospect-estimation) (If you're following along, you'll want to download "data_all_2021-01-08.csv").
+This is a brief introduction to how to use maximum likelihood to estimate the prospect theory parameters of loss aversion ($\lambda$) and diminishing marginal utility ($\rho$) using the `optim` function in R. The first part is meant to go through the logic and math behind prospect theory and modeling choices. The second part goes in detail into the R code used to do the Maximum likelihood estimation plus a few of the pitfalls that you can run into. If you're already familiar with MLE and just want the code, you can skip to the last section, which has the full code. All data and code for this page can be found [here](https://github.com/paulstillman/thegreatstatsby/tree/main/_posts/2021-03-08-ml-prospect) (If you're following along, you'll want to download "data_all_2021-01-08.csv").
 
-For the R portions, it will be helpful to be familiar with the [pipe](https://r4ds.had.co.nz/pipes.html), [dplyr](https://dplyr.tidyverse.org/), [purrr](https://r4ds.had.co.nz/iteration.html#the-map-functions), and [nested data/broom](https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html).
+For the R portions, I'll try to explain everything I use, but it will be helpful to be familiar with the [pipe](https://r4ds.had.co.nz/pipes.html) (`%>%`) and the baiscs of  [dplyr](https://dplyr.tidyverse.org/). We'll also juse [purrr](https://r4ds.had.co.nz/iteration.html#the-map-functions), and [nested data/broom](https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html), but I'll go more in depth on both of those.
 
 This will hopefully be a series of posts going into different components of model estimation. The punchline of a lot of this will to be to use the [hBayesDM package](https://ccs-lab.github.io/hBayesDM/articles/getting_started.html) [@hBayesDM] which is a great hierarchical Bayesian package. Please send any errors or comments to paul.e.stillman\@gmail.com.
 
@@ -92,7 +95,7 @@ The answer is we estimate it from participants' choices.
 
 # The Choices
 
-To estimate these parameters, we'll give participants a number of choices of whether to accept or reject a gamble, and then estimate their parameters from those choices. We'll use data from one of my papers [@stillman_using_2020] -- you can download the data [here](https://github.com/paulstillman/prospect-estimation/blob/main/data_all_2021-01-08.csv) -- in which participants made 215 choices of whether to accept some gamble, or instead take some certain amount of money. 
+To estimate these parameters, we'll give participants a number of choices of whether to accept or reject a gamble, and then estimate their parameters from those choices. We'll use data from one of my papers [@stillman_using_2020] -- you can download the data [here](https://github.com/paulstillman/thegreatstatsby/tree/main/_posts/2021-03-08-ml-prospect/data_all_2021-01-08.csv) -- in which participants made 215 choices of whether to accept some gamble, or instead take some certain amount of money. 
 
 In this dataset, we have two different types of gambles, mixed and gain-only. For **mixed gambles**, participants had to choose whether to accept a gamble that involved the possibility of a gain (earning money) or a loss (losing money), or to reject the gamble and take \$0 for certain. For instance, participants could chose to take \$0 for certain, or choose to gamble, in which case they would either gain \$5 or lose \$3 (each outcome had probability of 50%). In **gain-only gambles**, participants could get some amount of money for certain (e.g., \$5), or gamble and have a 50% chance of earning more (e.g., \$10) and a 50% chance of earning nothing at all (\$0). 
 
@@ -585,7 +588,7 @@ That looks... well $\rho$ looks kind of okay, the other two have some pretty cra
 
 One last wrinkle that is important to note: the starting point we provide can impact the results. The technical way to describe this is that the algorithm sometimes finds local minima, rather than global minima, and the local minima it finds is based on where we start it. Below, we'll use four different starting points rather than just one.^[These come from my data: I clustered the data and took the centers of the most populous clusters]
 
-Because this can take a while, I'm going to use the `furrr` package, which allows for parallel computing in conjunction with `purrr` (i.e., the package that contains the `map` functions). If you don't want to mess around with this, you can delete the first two lines of code here, and replace `future_map` with just `map` (it will take 4 times as long as the above code, however). You can also download the output, "data_optim_quad.rds", [here.](https://github.com/paulstillman/prospect-estimation)
+Because this can take a while, I'm going to use the `furrr` package, which allows for parallel computing in conjunction with `purrr` (i.e., the package that contains the `map` functions). If you don't want to mess around with this, you can delete the first two lines of code here, and replace `future_map` with just `map` (it will take 4 times as long as the above code, however). You can also download the output, "data_optim_quad.rds", [here.](https://github.com/paulstillman/thegreatstatsby/tree/main/_posts/2021-03-08-ml-prospect)
 
 ```{r load-optim-4start, include = FALSE, cache = TRUE}
 # Note, if you're reading this then it means you're digging through the 
@@ -857,8 +860,7 @@ optim_output_4 <- vector(mode = "list", length = length(unique_subjects))
 
 for (i in 1:length(unique_subjects)) {
   data_subject <- data_for_loop %>% filter(study_subject == unique_subjects[i])
-  print(data_subject)
-  
+
   optim_output_1[i] = list(optim(par = c(1.24, .83, 2.57),
                             fn = minimize_LL_prospect,
                             df = data_subject,
@@ -918,3 +920,8 @@ data_optim_quad_pars <- output_tibble %>%
          rho = map_dbl(pars, ~ .[2]),
          mu = map_dbl(pars, ~ .[3]))
 ```
+
+
+## Acknowledgments {.appendix}
+
+This post was greatly improved thanks to helpful comments from [Andrew Alexander](https://twitter.com/amalex5), [Ryan Carlson](https://twitter.com/carlsonr_), [Nathaniel Haines](http://haines-lab.com/), [David Melnikoff](https://twitter.com/demelnikoff), and Guy Voichek. 

@@ -7,14 +7,14 @@
     <description>A blog about statistics, data, and the mind
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 04 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 08 Mar 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Estimating Prospect Theory Parameters with Maximum Likelihood in R</title>
       <dc:creator>Paul E. Stillman</dc:creator>
       <link>https://paulstillman.github.io/thegreatstatsby/posts/2021-03-08-ml-prospect</link>
       <description>Using the optim function in R, I demonstrate how to fit the prospect theory value function and estimate parameters of loss aversion and diminishing marginal utility.</description>
       <guid>https://paulstillman.github.io/thegreatstatsby/posts/2021-03-08-ml-prospect</guid>
-      <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 08 Mar 2021 00:00:00 +0000</pubDate>
       <media:content url="https://paulstillman.github.io/thegreatstatsby/posts/2021-03-08-ml-prospect/ml-prospect_files/figure-html5/value-plot-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
   </channel>

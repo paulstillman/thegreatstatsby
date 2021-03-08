@@ -5,9 +5,19 @@ description: |
 output_dir: "docs"
 base_url: https://paulstillman.github.io/thegreatstatsby/
 navbar:
+  search: false
   left:
     - text: "Home"
       href: index.html
     - text: "About"
       href: about.html
+    - icon: fa fa-rss
+      href: index.xml
+  right:
+    - text: "PaulStillman.com"
+      href: https://www.paulstillman.com
+
+collections:
+  posts:
+    share: [twitter, linkedin]
 output: distill::distill_article

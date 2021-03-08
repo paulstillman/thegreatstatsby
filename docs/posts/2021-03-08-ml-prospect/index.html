@@ -90,10 +90,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <meta property="description" itemprop="description" content="Using the optim function in R, I demonstrate how to fit the prospect theory value function and estimate parameters of loss aversion and diminishing marginal utility."/>
 
 <link rel="canonical" href="https://paulstillman.github.io/thegreatstatsby/posts/2021-03-08-ml-prospect/"/>
+<link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/"/>
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2021-03-04"/>
-<meta property="article:created" itemprop="dateCreated" content="2021-03-04"/>
+<meta property="article:published" itemprop="datePublished" content="2021-03-08"/>
+<meta property="article:created" itemprop="dateCreated" content="2021-03-08"/>
 <meta name="article:author" content="Paul E. Stillman"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -119,8 +120,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
 <meta name="citation_title" content="The Great Statsby: Estimating Prospect Theory Parameters with Maximum Likelihood in R"/>
 <meta name="citation_fulltext_html_url" content="https://paulstillman.github.io/thegreatstatsby/posts/2021-03-08-ml-prospect/"/>
-<meta name="citation_online_date" content="2021/03/04"/>
-<meta name="citation_publication_date" content="2021/03/04"/>
+<meta name="citation_fulltext_world_readable" content=""/>
+<meta name="citation_online_date" content="2021/03/08"/>
+<meta name="citation_publication_date" content="2021/03/08"/>
 <meta name="citation_author" content="Paul E. Stillman"/>
 <!--/radix_placeholder_meta_tags-->
   
@@ -130,7 +132,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","bibliography","output","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Estimating Prospect Theory Parameters with Maximum Likelihood in R"]},{"type":"character","attributes":{},"value":["Using the optim function in R, I demonstrate how to fit the prospect theory value function and estimate parameters of loss aversion and diminishing marginal utility."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Paul E. Stillman"]},{"type":"character","attributes":{},"value":["https://paulstillman.com/blog"]}]}]},{"type":"character","attributes":{},"value":["03-04-2021"]},{"type":"character","attributes":{},"value":["ML_blog_part1_v2.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["https://paulstillman.github.io/thegreatstatsby/posts/2021-03-08-ml-prospect/"]},{"type":"character","attributes":{},"value":["https://paulstillman.github.io/thegreatstatsby/posts/2021-03-08-ml-prospect/"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","bibliography","output","creative_commons","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Estimating Prospect Theory Parameters with Maximum Likelihood in R"]},{"type":"character","attributes":{},"value":["Using the optim function in R, I demonstrate how to fit the prospect theory value function and estimate parameters of loss aversion and diminishing marginal utility."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Paul E. Stillman"]},{"type":"character","attributes":{},"value":["https://www.paulstillman.com/"]},{"type":"character","attributes":{},"value":["0000-0002-4413-0558"]}]}]},{"type":"character","attributes":{},"value":["03-08-2021"]},{"type":"character","attributes":{},"value":["ML_blog_part1_v2.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["CC BY-NC"]},{"type":"character","attributes":{},"value":["https://paulstillman.github.io/thegreatstatsby/posts/2021-03-08-ml-prospect/"]},{"type":"character","attributes":{},"value":["https://paulstillman.github.io/thegreatstatsby/posts/2021-03-08-ml-prospect/"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -478,258 +480,6 @@ d-title {
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
-<script src="../../site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
-<script src="../../site_libs/fuse-6.4.1/fuse.min.js"></script>
-
-<script type="application/javascript">
-
-function getMeta(metaName) {
-  var metas = document.getElementsByTagName('meta');
-  for (let i = 0; i < metas.length; i++) {
-    if (metas[i].getAttribute('name') === metaName) {
-      return metas[i].getAttribute('content');
-    }
-  }
-  return '';
-}
-
-function offsetURL(url) {
-  var offset = getMeta('distill:offset');
-  return offset ? offset + '/' + url : url;
-}
-
-function createFuseIndex() {
-
-  // create fuse index
-  var options = {
-    keys: [
-      { name: 'title', weight: 20 },
-      { name: 'categories', weight: 15 },
-      { name: 'description', weight: 10 },
-      { name: 'contents', weight: 5 },
-    ],
-    ignoreLocation: true,
-    threshold: 0
-  };
-  var fuse = new window.Fuse([], options);
-
-  // fetch the main search.json
-  return fetch(offsetURL('search.json'))
-    .then(function(response) {
-      if (response.status == 200) {
-        return response.json().then(function(json) {
-          // index main articles
-          json.articles.forEach(function(article) {
-            fuse.add(article);
-          });
-          // download collections and index their articles
-          return Promise.all(json.collections.map(function(collection) {
-            return fetch(offsetURL(collection)).then(function(response) {
-              if (response.status === 200) {
-                return response.json().then(function(articles) {
-                  articles.forEach(function(article) {
-                    fuse.add(article);
-                  });
-                })
-              } else {
-                return Promise.reject(
-                  new Error('Unexpected status from search index request: ' +
-                            response.status)
-                );
-              }
-            });
-          })).then(function() {
-            return fuse;
-          });
-        });
-
-      } else {
-        return Promise.reject(
-          new Error('Unexpected status from search index request: ' +
-                      response.status)
-        );
-      }
-    });
-}
-
-window.document.addEventListener("DOMContentLoaded", function (event) {
-
-  // get search element (bail if we don't have one)
-  var searchEl = window.document.getElementById('distill-search');
-  if (!searchEl)
-    return;
-
-  createFuseIndex()
-    .then(function(fuse) {
-
-      // make search box visible
-      searchEl.classList.remove('hidden');
-
-      // initialize autocomplete
-      var options = {
-        autoselect: true,
-        hint: false,
-        minLength: 2,
-      };
-      window.autocomplete(searchEl, options, [{
-        source: function(query, callback) {
-          const searchOptions = {
-            isCaseSensitive: false,
-            shouldSort: true,
-            minMatchCharLength: 2,
-            limit: 10,
-          };
-          var results = fuse.search(query, searchOptions);
-          callback(results
-            .map(function(result) { return result.item; })
-            .filter(function(item) { return !!item.description; })
-          );
-        },
-        templates: {
-          suggestion: function(suggestion) {
-            var html = `
-              <div class="search-item">
-                <h3>${suggestion.title}</h3>
-                <div class="search-item-description">
-                  ${suggestion.description}
-                </div>
-                <div class="search-item-preview">
-                  <img src="${suggestion.preview ? offsetURL(suggestion.preview) : ''}"</img>
-                </div>
-              </div>
-            `;
-            return html;
-          }
-        }
-      }]).on('autocomplete:selected', function(event, suggestion) {
-        window.location.href = offsetURL(suggestion.path);
-      });
-      // remove inline display style on autocompleter (we want to
-      // manage responsive display via css)
-      $('.algolia-autocomplete').css("display", "");
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-
-});
-
-</script>
-
-<style type="text/css">
-
-/* Algolioa Autocomplete */
-
-.algolia-autocomplete {
-  display: inline-block;
-  margin-left: 10px;
-  vertical-align: sub;
-  background-color: white;
-  color: black;
-  padding: 6px;
-  padding-top: 8px;
-  padding-bottom: 0;
-  border-radius: 6px;
-  border: 1px #0F2E3D solid;
-  width: 180px;
-}
-
-
-@media screen and (max-width: 768px) {
-  .distill-site-nav .algolia-autocomplete {
-    display: none;
-    visibility: hidden;
-  }
-  .distill-site-nav.responsive .algolia-autocomplete {
-    display: inline-block;
-    visibility: visible;
-  }
-  .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
-    margin-left: 0;
-    width: 400px;
-    max-height: 400px;
-  }
-}
-
-.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
-  width: 90%;
-  outline: none;
-  border: none;
-}
-
-.algolia-autocomplete .aa-hint {
-  color: #999;
-}
-.algolia-autocomplete .aa-dropdown-menu {
-  width: 550px;
-  max-height: 70vh;
-  overflow-x: visible;
-  overflow-y: scroll;
-  padding: 5px;
-  margin-top: 3px;
-  margin-left: -150px;
-  background-color: #fff;
-  border-radius: 5px;
-  border: 1px solid #999;
-  border-top: none;
-}
-
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
-  cursor: pointer;
-  padding: 5px 4px;
-  border-bottom: 1px solid #eee;
-}
-
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
-  border-bottom: none;
-  margin-bottom: 2px;
-}
-
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
-  overflow: hidden;
-  font-size: 0.8em;
-  line-height: 1.4em;
-}
-
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
-  margin-block-start: 0;
-  margin-block-end: 5px;
-}
-
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
-  display: inline-block;
-  overflow: hidden;
-  height: 2.8em;
-  width: 80%;
-  margin-right: 4%;
-}
-
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
-  display: inline-block;
-  width: 15%;
-}
-
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
-  height: 3em;
-  width: auto;
-  display: none;
-}
-
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
-  display: initial;
-}
-
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: #eee;
-}
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
-  font-weight: bold;
-  font-style: normal;
-}
-
-</style>
-
-
 <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
 
@@ -2034,7 +1784,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Estimating Prospect Theory Parameters with Maximum Likelihood in R","description":"Using the optim function in R, I demonstrate how to fit the prospect theory value function and estimate parameters of loss aversion and diminishing marginal utility.","authors":[{"author":"Paul E. Stillman","authorURL":"https://paulstillman.com/blog","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-03-04T00:00:00.000-05:00","citationText":"Stillman, 2021"}
+{"title":"Estimating Prospect Theory Parameters with Maximum Likelihood in R","description":"Using the optim function in R, I demonstrate how to fit the prospect theory value function and estimate parameters of loss aversion and diminishing marginal utility.","authors":[{"author":"Paul E. Stillman","authorURL":"https://www.paulstillman.com/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":"0000-0002-4413-0558"}],"publishedDate":"2021-03-08T00:00:00.000-05:00","citationText":"Stillman, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2045,9 +1795,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <a href="../../index.html" class="title">The Great Statsby</a>
 <a href="../../index.html">Home</a>
 <a href="../../about.html">About</a>
-<input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
+<a href="../../index.xml">
+<i class="fa fa-rss" aria-hidden="true"></i>
+</a>
 </div>
 <div class="nav-right">
+<a href="https://www.paulstillman.com">PaulStillman.com</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2064,9 +1817,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 <div class="d-byline">
-  Paul E. Stillman <a href="https://paulstillman.com/blog" class="uri">https://paulstillman.com/blog</a> 
+  Paul E. Stillman <a href="https://www.paulstillman.com/" class="uri">https://www.paulstillman.com/</a> 
   
-<br/>03-04-2021
+<br/>03-08-2021
 </div>
 
 <div class="d-article">
@@ -2096,7 +1849,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><a href="#multiple-starting-points">Multiple starting points</a></li>
 <li><a href="#evaluating-model-predictions">Evaluating model predictions</a></li>
 </ul></li>
-<li><a href="#full-code">Full Code</a></li>
+<li><a href="#full-code">Full Code</a>
+<ul>
+<li><a href="#acknowledgments">Acknowledgments</a></li>
+</ul></li>
 </ul>
 </nav>
 </div>
@@ -2110,8 +1866,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </style>
 </div>
 <h1 id="introduction">Introduction</h1>
-<p>This is a brief introduction to how to use maximum likelihood to estimate the prospect theory parameters of loss aversion (<span class="math inline">\(\lambda\)</span>) and diminishing marginal utility (<span class="math inline">\(\rho\)</span>) using the <code>optim</code> function in R. The first part is meant to go through the logic and math behind prospect theory and modeling choices. The second part goes in detail into the R code used to do the Maximum likelihood estimation plus a few of the pitfalls that you can run into. If you’re already familiar with MLE and just want the code, you can skip to the last section, which has the full code. All data and code for this page can be found <a href="https://github.com/paulstillman/prospect-estimation">here</a> (If you’re following along, you’ll want to download “data_all_2021-01-08.csv”).</p>
-<p>For the R portions, it will be helpful to be familiar with the <a href="https://r4ds.had.co.nz/pipes.html">pipe</a>, <a href="https://dplyr.tidyverse.org/">dplyr</a>, <a href="https://r4ds.had.co.nz/iteration.html#the-map-functions">purrr</a>, and <a href="https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html">nested data/broom</a>.</p>
+<p>This is a brief introduction to how to use maximum likelihood to estimate the prospect theory parameters of loss aversion (<span class="math inline">\(\lambda\)</span>) and diminishing marginal utility (<span class="math inline">\(\rho\)</span>) using the <code>optim</code> function in R. The first part is meant to go through the logic and math behind prospect theory and modeling choices. The second part goes in detail into the R code used to do the Maximum likelihood estimation plus a few of the pitfalls that you can run into. If you’re already familiar with MLE and just want the code, you can skip to the last section, which has the full code. All data and code for this page can be found <a href="https://github.com/paulstillman/thegreatstatsby/tree/main/_posts/2021-03-08-ml-prospect">here</a> (If you’re following along, you’ll want to download “data_all_2021-01-08.csv”).</p>
+<p>For the R portions, I’ll try to explain everything I use, but it will be helpful to be familiar with the <a href="https://r4ds.had.co.nz/pipes.html">pipe</a> (<code>%&gt;%</code>) and the baiscs of <a href="https://dplyr.tidyverse.org/">dplyr</a>. We’ll also juse <a href="https://r4ds.had.co.nz/iteration.html#the-map-functions">purrr</a>, and <a href="https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html">nested data/broom</a>, but I’ll go more in depth on both of those.</p>
 <p>This will hopefully be a series of posts going into different components of model estimation. The punchline of a lot of this will to be to use the <a href="https://ccs-lab.github.io/hBayesDM/articles/getting_started.html">hBayesDM package</a> <span class="citation" data-cites="hBayesDM">(<a href="#ref-hBayesDM" role="doc-biblioref">Ahn, Haines, and Zhang 2017</a>)</span> which is a great hierarchical Bayesian package. Please send any errors or comments to paul.e.stillman@gmail.com.</p>
 <h1 id="a-brief-overview-of-prospect-theory">A brief overview of prospect theory</h1>
 <p>How do people make choices involving risk and uncertainty? For instance, if someone offers you a gamble whereby they flip a coin, and if it comes up heads you win $20, but lose $18 if it comes up tails, would you accept? Do you think others would accept? One way to decide would be to simply multiply the value of the different possible outcomes by their probability, and choose the resulting option that has the highest <em>expected value</em>. So in our example, forgoing the gamble is equal to a value of <span class="math inline">\(\$0\)</span>, whereas electing the gamble is <span class="math inline">\(.5\cdot\$20 - .5\cdot\$18 = \$1\)</span>, which is greater than <span class="math inline">\(\$0\)</span>, so we should accept the gamble.</p>
@@ -2142,7 +1898,7 @@ Figure 1: Subjective Utility According to Prospect Theory (lambda = 2.6, rho = .
 <p>Both <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\rho\)</span> vary greatly from person to person (and situation to situation), and indeed what we often want as researchers is to estimate these parameters for each individual person – both to understand their particular value function, as well as test if various situational/individual features shift these parameters meaningfully <span class="citation" data-cites="sokol-hessner_thinking_2009">(e.g., <a href="#ref-sokol-hessner_thinking_2009" role="doc-biblioref">Sokol-Hessner et al. 2009</a>)</span> – indeed, this is the entire motivation for this post. But how do we do this?</p>
 <p>The answer is we estimate it from participants’ choices.</p>
 <h1 id="the-choices">The Choices</h1>
-<p>To estimate these parameters, we’ll give participants a number of choices of whether to accept or reject a gamble, and then estimate their parameters from those choices. We’ll use data from one of my papers <span class="citation" data-cites="stillman_using_2020">(<a href="#ref-stillman_using_2020" role="doc-biblioref">Stillman, Krajbich, and Ferguson 2020</a>)</span> – you can download the data <a href="https://github.com/paulstillman/prospect-estimation/blob/main/data_all_2021-01-08.csv">here</a> – in which participants made 215 choices of whether to accept some gamble, or instead take some certain amount of money.</p>
+<p>To estimate these parameters, we’ll give participants a number of choices of whether to accept or reject a gamble, and then estimate their parameters from those choices. We’ll use data from one of my papers <span class="citation" data-cites="stillman_using_2020">(<a href="#ref-stillman_using_2020" role="doc-biblioref">Stillman, Krajbich, and Ferguson 2020</a>)</span> – you can download the data <a href="https://github.com/paulstillman/thegreatstatsby/tree/main/_posts/2021-03-08-ml-prospect/data_all_2021-01-08.csv">here</a> – in which participants made 215 choices of whether to accept some gamble, or instead take some certain amount of money.</p>
 <p>In this dataset, we have two different types of gambles, mixed and gain-only. For <strong>mixed gambles</strong>, participants had to choose whether to accept a gamble that involved the possibility of a gain (earning money) or a loss (losing money), or to reject the gamble and take $0 for certain. For instance, participants could chose to take $0 for certain, or choose to gamble, in which case they would either gain $5 or lose $3 (each outcome had probability of 50%). In <strong>gain-only gambles</strong>, participants could get some amount of money for certain (e.g., $5), or gamble and have a 50% chance of earning more (e.g., $10) and a 50% chance of earning nothing at all ($0).</p>
 <p>In this dataset, the gamble always had two outcomes which were equally likely, 50% (this is by no means a requirement for estimating parameters from choices). There were 165 mixed gambles (which participants completed first) and 50 gain-only gambles. Across 3 studies, we have 652 participants. Here’s what the data look like:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2731,7 +2487,7 @@ Figure 4: Histograms of lambda, rho, and mu.
 <p>That looks… well <span class="math inline">\(\rho\)</span> looks kind of okay, the other two have some pretty crazy outliers. In the next section we’ll impose some more constraints on our parameters to make them a bit more sensible. Specifically, we’ll use <code>lower = c(.01, .01, .01)</code> and <code>upper = c(20, 10, 20)</code> as the constraints. Where did I get these numbers? I asked a friend whose lab does these things and he said those are what his lab uses. In the future, we’ll instead use hierarchical Bayesian analyses which will allow us to set up sensible priors for our parameters, which is a more elegant way around the problem of “hrmm I have some huge outliers and they probably aren’t right.”</p>
 <h2 id="multiple-starting-points">Multiple starting points</h2>
 <p>One last wrinkle that is important to note: the starting point we provide can impact the results. The technical way to describe this is that the algorithm sometimes finds local minima, rather than global minima, and the local minima it finds is based on where we start it. Below, we’ll use four different starting points rather than just one.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
-<p>Because this can take a while, I’m going to use the <code>furrr</code> package, which allows for parallel computing in conjunction with <code>purrr</code> (i.e., the package that contains the <code>map</code> functions). If you don’t want to mess around with this, you can delete the first two lines of code here, and replace <code>future_map</code> with just <code>map</code> (it will take 4 times as long as the above code, however). You can also download the output, “data_optim_quad.rds,” <a href="https://github.com/paulstillman/prospect-estimation">here.</a></p>
+<p>Because this can take a while, I’m going to use the <code>furrr</code> package, which allows for parallel computing in conjunction with <code>purrr</code> (i.e., the package that contains the <code>map</code> functions). If you don’t want to mess around with this, you can delete the first two lines of code here, and replace <code>future_map</code> with just <code>map</code> (it will take 4 times as long as the above code, however). You can also download the output, “data_optim_quad.rds,” <a href="https://github.com/paulstillman/thegreatstatsby/tree/main/_posts/2021-03-08-ml-prospect">here.</a></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/DavisVaughan/furrr'>furrr</a></span><span class='op'>)</span>
@@ -2975,8 +2731,7 @@ Figure 6: Number of gambles actually accepted as a function of the number of gam
 
 <span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>unique_subjects</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>data_subject</span> <span class='op'>&lt;-</span> <span class='va'>data_for_loop</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>study_subject</span> <span class='op'>==</span> <span class='va'>unique_subjects</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>data_subject</span><span class='op'>)</span>
-  
+
   <span class='va'>optim_output_1</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/optim.html'>optim</a></span><span class='op'>(</span>par <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.24</span>, <span class='fl'>.83</span>, <span class='fl'>2.57</span><span class='op'>)</span>,
                             fn <span class='op'>=</span> <span class='va'>minimize_LL_prospect</span>,
                             df <span class='op'>=</span> <span class='va'>data_subject</span>,
@@ -3038,6 +2793,8 @@ Figure 6: Number of gambles actually accepted as a function of the number of gam
 </code></pre>
 </div>
 </div>
+<h2 class="appendix" id="acknowledgments">Acknowledgments</h2>
+<p>This post was greatly improved thanks to helpful comments from <a href="https://twitter.com/amalex5">Andrew Alexander</a>, <a href="https://twitter.com/carlsonr_">Ryan Carlson</a>, <a href="http://haines-lab.com/">Nathaniel Haines</a>, <a href="https://twitter.com/demelnikoff">David Melnikoff</a>, and Guy Voichek.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-hBayesDM" class="csl-entry" role="doc-biblioentry">
@@ -3071,6 +2828,19 @@ Tversky, Amos, and Daniel Kahneman. 1992. <span>“Advances in Prospect Theory: 
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
+<div class="article-footer">
+  <p class="social_footer">
+    <span class="article-sharing">
+      Share: &nbsp;
+      <a href="https://twitter.com/share?text=Estimating%20Prospect%20Theory%20Parameters%20with%20Maximum%20Likelihood%20in%20R&amp;url=https%3A%2F%2Fpaulstillman.github.io%2Fthegreatstatsby%2Fposts%2F2021-03-08-ml-prospect%2F">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fpaulstillman.github.io%2Fthegreatstatsby%2Fposts%2F2021-03-08-ml-prospect%2F&amp;title=Estimating%20Prospect%20Theory%20Parameters%20with%20Maximum%20Likelihood%20in%20R">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </span>
+  </p>
+</div>
 <!--/radix_placeholder_article_footer-->
 </div>
 
@@ -3093,9 +2863,11 @@ Tversky, Amos, and Daniel Kahneman. 1992. <span>“Advances in Prospect Theory: 
 <div class="appendix-bottom">
   <h3 id="references">References</h3>
   <div id="references-listing"></div>
+  <h3 id="reuse">Reuse</h3>
+  <p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
   <h3 id="citation">Citation</h3>
   <p>For attribution, please cite this work as</p>
-  <pre class="citation-appendix short">Stillman (2021, March 4). The Great Statsby: Estimating Prospect Theory Parameters with Maximum Likelihood in R. Retrieved from https://paulstillman.github.io/thegreatstatsby/posts/2021-03-08-ml-prospect/</pre>
+  <pre class="citation-appendix short">Stillman (2021, March 8). The Great Statsby: Estimating Prospect Theory Parameters with Maximum Likelihood in R. Retrieved from https://paulstillman.github.io/thegreatstatsby/posts/2021-03-08-ml-prospect/</pre>
   <p>BibTeX citation</p>
   <pre class="citation-appendix long">@misc{stillman2021estimating,
   author = {Stillman, Paul E.},
