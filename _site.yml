@@ -3,7 +3,7 @@ title: "The Great Statsby"
 description: |
   A blog about statistics, data, and the mind
 output_dir: "."
-base_url: https://www.thegreatstatsby.com
+base_url: https://paulstillman.github.io/thegreatstatsby/
 navbar:
   left:
     - text: "Paul Stillman"
