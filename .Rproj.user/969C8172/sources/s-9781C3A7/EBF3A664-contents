@@ -5,7 +5,7 @@ description: |
 output_dir: "docs"
 base_url: https://paulstillman.github.io/thegreatstatsby/
 navbar:
-  center:
+  left:
     - text: "Home"
       href: index.html
     - text: "About"
