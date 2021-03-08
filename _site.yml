@@ -1,12 +1,16 @@
-name: "thegreatstatsby"
+name: "dsb_v2"
 title: "The Great Statsby"
 description: |
-  The Great Statsby
-output_dir: "docs"
+  A blog about statistics, data, and the mind
+output_dir: "."
+base_url: https://www.thegreatstatsby.com
 navbar:
-  right:
-    - text: "Home"
-      href: index.html
-    - text: "About"
-      href: about.html
+  left:
+    - text: "Paul Stillman"
+      href: https:www.paulstillman.com
+    - text: "Publications"
+      href: https://www.paulstillman.com/index.php/publications/
+    - text: "Contact"
+      href: https://www.paulstillman.com/index.php/contact/
+
 output: distill::distill_article
