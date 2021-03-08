@@ -1,5 +1,7 @@
 ---
 title: "The Great Statsby"
+description: |
+  Explorations into data science, art, and their intersection.
 site: distill::distill_website
 listing: posts
 ---
