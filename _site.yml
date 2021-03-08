@@ -6,6 +6,7 @@ output_dir: "docs"
 base_url: https://paulstillman.github.io/thegreatstatsby/
 navbar:
   search: false
+  source_url: https://github.com/paulstillman/thegreatstatsby
   left:
     - text: "Home"
       href: index.html
