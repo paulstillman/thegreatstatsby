@@ -6,7 +6,7 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\r\nMy name is Paul Stillman, and this is my blog. This goal of this blog is to provide deep dives on issues of data, statistics, computational modeling, and whatever else I feel like writing about. My general approach for writing a post is either something I would have liked to have had 5 years ago, or something I feel like learning. Any errors, questions, or suggestions for future posts can be emailed to me at paul.e.stillman@gmail.com or paul.stillman@yale.edu.\r\nAbout the Author\r\nI am currently a post-doc in Marketing at the Yale School of Management. I received my PhD in social psychology from Ohio State University and my BA in psychology from Cornell University. My research takes a computational approach to understanding how individuals navigate conflicting motivations. Using dynamic measures of behavior (e.g., mouse-tracking), real choices (e.g., field and lab experiments), and neuroscience methods, my work aims to build a unified understanding of how individuals manage and prioritize the complex array of goals towards which they strive. Ultimately, I hope to empower individuals to make decisions that will allow them to reach their long-term goals efficiently and sustainably. My google scholar page can be found here, and copies of my publications and my CV can be found on my personal website: www.paulstillman.com.\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-03-10T07:34:56-05:00"
+      "last_modified": "2021-03-21T14:47:37-04:00"
     },
     {
       "path": "index.html",
@@ -14,7 +14,7 @@
       "description": "Explorations into data science, art, and their intersection.\n",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-03-10T07:34:57-05:00"
+      "last_modified": "2021-03-21T14:47:39-04:00"
     }
   ],
   "collections": ["posts/posts.json"]
